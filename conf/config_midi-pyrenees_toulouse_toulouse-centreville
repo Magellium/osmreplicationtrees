@@ -1,0 +1,75 @@
+#!/bin/bash
+
+## Default config file
+# RPA: Midi-Pyrénées (former french region)
+# RPA provider: Geofabrik
+# 2 Child Areas: Toulouse (PA: Midi-Pyrénées), Toulouse city center (PA: Midi-Toulouse)
+
+VERSION=1.0
+
+# DOCKER CONFIG
+###############
+
+# DOCKER CONFIG
+DOCKER_BUILD_TAG=osmreplicationtrees:${VERSION}
+DOCKER_NAME=osmreplicationtrees
+
+# HOST/DOCKER SHARED VOLUMES 
+############################
+
+# SOME SHARED VOLUMES NAMES
+RPA_FILES_DIR_NAME=rpa_files
+CA_FILES_DIR_NAME=ca_files
+LOG_FILES_DIR_NAME=logs
+# HOST_VOLUMES_PATH
+# default base directory on your host machine where shared docker volumes must be localized
+HOST_VOLUMES_BASE_DIR=${HOME}/docker_mounted_volumes/osmreplicationtrees-volumes
+HOSTPATH_RPA_FILES_DIR=${HOST_VOLUMES_BASE_DIR}/${RPA_FILES_DIR_NAME}
+HOSTPATH_CA_FILES_DIR=${HOST_VOLUMES_BASE_DIR}/${CA_FILES_DIR_NAME}
+HOSTPATH_LOGS_DIR=${HOST_VOLUMES_BASE_DIR}/${LOG_FILES_DIR_NAME}
+# DOCKER_VOLUMES_PATH
+DOCKER_VOLUMES_BASE_DIR=/docker_mounted_volumes
+DOCKERPATH_SOURCE_DIR=${DOCKER_VOLUMES_BASE_DIR}/sources
+DOCKERPATH_RPA_FILES_DIR=${DOCKER_VOLUMES_BASE_DIR}/${RPA_FILES_DIR_NAME}
+DOCKERPATH_CA_FILES_DIR=${DOCKER_VOLUMES_BASE_DIR}/${CA_FILES_DIR_NAME}
+DOCKERPATH_LOGS_DIR=${DOCKER_VOLUMES_BASE_DIR}/${LOG_FILES_DIR_NAME}
+
+# SOME DIRECTORIES NAMES 
+############################
+OSMOSIS_WORKING_DIRS_NAME=updates
+RT_DIRS_NAME=replication-tree
+
+# AREAS OF INTEREST
+###################
+
+## Root Parent Area (RPA)
+RPA_NAME=midi-pyrenees
+RPA_OSM_FILE_DOWNLOAD_URL=http://download.geofabrik.de/europe/france/midi-pyrenees-latest.osm.pbf
+RPA_INITIAL_DAYS_OF_DELAY=1
+#RPA_INITIAL_DAYS_OF_DELAY=7
+RPA_RT_URL=https://download.geofabrik.de/europe/france/midi-pyrenees-updates
+
+## LOCK FILES 
+RPA_LOCK_FILE=${DOCKERPATH_RPA_FILES_DIR}/${RPA_NAME}/keepup_RPA_osm_file.lock
+CA_LOCK_FILE=${DOCKERPATH_CA_FILES_DIR}/keepup_CAs_RTs.lock
+LOCK_FILES=( ${RPA_LOCK_FILE} ${CA_LOCK_FILE})
+
+## Osmosis replication interval (86400 is the number of seconds in one day)
+RPA_OSMOSIS_MAX_INTERVAL=86400
+#KEEPUP_RPA_DELAY_BETWEEN_TRIES=$((${RPA_OSMOSIS_MAX_INTERVAL} / 10))
+KEEPUP_RPA_DELAY_BETWEEN_TRIES=1
+KEEPUP_RPA_MAX_TRY_NUM=10
+## Child Areas (CA)
+# you must 
+# - indicate child area names and their respective parents dir in the same order
+# - in $CA_NAMES: if a child area A is the parent of another child area B, A must be declared **before** B
+CA_NAMES=( toulouse toulouse-centreville )
+PARENTS_NAMES=( ${RPA_NAME} toulouse )
+PARENTS_DIR=( ${DOCKERPATH_RPA_FILES_DIR} ${DOCKERPATH_CA_FILES_DIR} )
+PARENTS_STATE_FILE_DIR=( ${OSMOSIS_WORKING_DIRS_NAME} ${RT_DIRS_NAME} )
+KEEPUP_CAs_RTs_DELAY_BETWEEN_TRIES="3"
+#KEEPUP_CAs_RTs_DELAY_BETWEEN_TRIES="30m"
+KEEPUP_CAs_RTs_MAX_TRY_NUM=10
+# optional (if you have an URL to download your .poly files). Same order as $CA_NAMES:
+CA_POLY_FILES_DOWNLOAD_URL=( http://download.geofabrik.de/europe/france.poly http://download.geofabrik.de/europe/france/midi-pyrenees.poly )
+
