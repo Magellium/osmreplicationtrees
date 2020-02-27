@@ -19,9 +19,9 @@ Let's take an example: with an available daily updated `planet-latest.osm.pbf` a
 * `mycountry-latest.osm.pbf` file
 * `mycountry-latest/replication/day/` replication tree
 
-`osmreplicationtrees` can be use recursively. For instance, from a parent root area, your child areas could be `country1` and `country2`, and `country2` can be the parent of a `country2-subregion` child area, and so on).
+`osmreplicationtrees` can be used recursively. For instance, from a parent root area, your child areas could be `country1` and `country2`, and `country2` can be the parent of a `country2-subregion` child area, and so on).
 
-For sure, your parent root area must geographically comprises all its comming child areas...
+For sure, your parent root area must geographically comprises all its comming child areas.
 
 ## Acronyms
 
@@ -58,26 +58,27 @@ cd osmreplicationtrees/
 
 ## Adapt configuration
 
-Two default config files are provided under `./conf/` directory. You can use one of them for testing purposes. Just rename one of them to `config`. For instance, to test quickly, using less than 1 GB if disk space, just run:
+Two default config files are provided under `./conf/` directory. You can use one of them for testing purposes. Just rename one of them to `config`. For instance, to test quickly with a light config (using less than 1 GB of disk space), just run:
 
 ```bash
 cp ./conf/config_midi-pyrenees_toulouse_toulouse-centreville ./conf/config
 ```
 
-To custom configuration, have a look at `Configuration customisation` section below.
+To custom configuration to suit your needs, have a look at `Configuration customisation` section below.
 
 ## Usage
 
 ```bash
 # read configuration
 . ./conf/config
-# run this script until there is no error. It will check if all requirements are fullfilled and tell you what to do if necessary
+# run this script until there is no error
+# it will check if all requirements are fullfilled and tell you what to do if not
 bash ./check_requirements.sh
 # build docker
 sudo docker build --tag $DOCKER_BUILD_TAG docker
 # deploy trees
-bash ./run_docker_and_deploy_trees.sh
-# keep everything up-to-date
+nohup bash ./run_docker_and_deploy_trees.sh > $HOSTPATH_LOGS_DIR/run_docker_and_deploy_trees.log 2>&1 &
+# keep everything up-to-date with a cron task
 sudo bash -c "cat <<EOF > /etc/cron.d/keepup_docker-$DOCKER_NAME
 30 0 * * * root docker exec $DOCKER_NAME bash ${DOCKERPATH_SOURCE_DIR}/scripts/keepup_trees.sh > $HOSTPATH_LOGS_DIR/keepup_trees.log 2>&1
 EOF"
@@ -98,7 +99,7 @@ bash ${DOCKERPATH_SOURCE_DIR}/scripts/tasks/reinit_RPA_osm_file.sh \
 ### Add a new child area to a running instance
 
 * update some config file variables
-  * `CA_NAMES`: add new child area name in the list
+  * `CA_NAMES`: add the new child area name in the list
   * `PARENTS_NAMES`, `PARENTS_DIR`, `PARENTS_STATE_FILE_DIR`: add needed information about the parent of the new child area
 * add new child area `.poly` file in `./conf/poly_files` directory
 * run `./check_requirements.sh` to make sure everything is OK
@@ -114,12 +115,12 @@ bash ${DOCKERPATH_SOURCE_DIR}/scripts/tasks/reinit_RPA_osm_file.sh \
 
 A daily updated root parent area `.osm.pbf` file available on your server will be necessary.
 
-Because it's not recommended to download it every day from a data provider (as Planet OSM, Geofabrik or another), it's better to download it once from an OSM data provider and keep it up-to-date thanks to Osmosis. Consequently your root parent area must respect two requirements:
+Because it's not recommended to download it every day from a data provider (as Planet OSM, Geofabrik or another), it's better to download it once from an OSM data provider and keep it up-to-date thanks to Osmosis and Osmium. Consequently your root parent area must respect two requirements:
 
 * a corresponding `.osm.pbf` file is available somewhere (`$RPA_OSM_FILE_DOWNLOAD_URL` in `./conf/config`)
 * a corresponding daily replication tree is available somewhere (`$RPA_RT_URL` in `./conf/config`)
 
-Latest available RPA `.osm.pbf` file is not necessary up-to-date (for instance if your RPA is `planet.osm.pbf` from Planet OSM, it's updated only once per week). Be sure that `$RPA_INITIAL_DAYS_OF_DELAY` corresponds to the number of day between the latest available `state.txt` file and your `planet.osm.pbf` timestamp (add 1 day to be sure).
+Latest available RPA `.osm.pbf` file is not necessary up-to-date (for instance if your RPA is `planet.osm.pbf` from Planet OSM, it's updated only once per week). Be sure that `$RPA_INITIAL_DAYS_OF_DELAY` corresponds to the number of day between two consecutive updates (e.g. 7 days for last example).
 
 #### Child areas POLY file(s)
 
@@ -133,6 +134,6 @@ If desired `.poly` files are available for download somewhere, you may use `$CA_
 
 For one replication tree, you have to host (indicated sizes stand for `planet` as root parent area, and `france` as child area, in january 2020):
 
-* two root parent area `.osm.pbf` files  (2*49 GB ~ 100 GB)
+* two root parent areas `.osm.pbf` files  (2*49 GB ~ 100 GB)
 * at least two `child_area.osm.pbf` files (for instance 2*3.5 GB ~ 7 GB for France)
 * a child area replication tree (roughly estimated at 0,04% of your `child_area.osm.pbf` size more each day, from starting day ; for instance about 500MB for 6 months for France)
