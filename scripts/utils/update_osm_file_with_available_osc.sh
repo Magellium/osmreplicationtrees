@@ -1,5 +1,11 @@
 #!/bin/bash
 
+## README
+# This script will 
+# - download all available .osc.gz files between $AREA_ROOT_STATE_FILE timestamp and ($AREA_ROOT_STATE_FILE timestamp - $OSM_FILE_DAYS_OF_DELAY)
+# - produce a merge.osc.gz (using Osmium)
+# - apply the merge.osc.gz to the PBF file (using Osmium)
+
 # Settings
 set -e # Be sure we fail on error and output debugging information
 trap 'echo "$0: error on line $LINENO"' ERR
@@ -73,13 +79,7 @@ if [ ! -f "${OSM_LATEST_FILE}" ]
 then
     >&2 echo -e "\nError: '${OSM_LATEST_FILE}' file does not exist."
     exit 1
-else
-  echo "- '${OSM_LATEST_FILE}' file exists">&2
-fi
-
-echo
-echo ------------------------------------------------------
-echo "Check for state.txt file at ${AREA_ROOT_STATE_FILE}"
+elsetoday minor _STATE_FILE}"
 echo
 
 if [ ! -f "${AREA_ROOT_STATE_FILE}" ]

@@ -1,5 +1,9 @@
 #!/bin/bash
 
+## README
+# This script initializes the Root Parent Area Osmosis working directory
+# Osmosis is needed to keep up-to-date the RPA
+
 # Settings
 set -e # Be sure we fail on error and output debugging information
 trap 'echo "$0: error on line $LINENO"' ERR

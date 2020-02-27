@@ -1,5 +1,9 @@
 #!/bin/bash
 
+## README
+# This script download latest Root Parent Area PBF file and state.txt file
+# Then it will update the PBF file with all available .osc.gz changes
+
 # Settings
 set -e # Be sure we fail on error and output debugging information
 trap 'echo "$0: error on line $LINENO"' ERR

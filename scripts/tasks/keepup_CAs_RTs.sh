@@ -1,5 +1,12 @@
 #!/bin/bash
 
+## README
+# This script will iterate on every child area to keep up-to-date its specific replication tree
+# Before all it will check that:
+# - the Root Parent Area has been updated since last script call
+# - there is no concurrent process (no lock file)
+# -> if not the script will try to perform the task later (see $KEEPUP_CAs_RTs_DELAY_BETWEEN_TRIES and $KEEPUP_RPA_MAX_TRY_NUM)
+
 # Settings
 set -e # Be sure we fail on error and output debugging information
 trap 'echo "$0: error on line $LINENO"' ERR

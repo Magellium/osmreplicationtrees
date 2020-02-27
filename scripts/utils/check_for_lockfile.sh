@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Useful functions to manipulate OSM replication trees paths 
-# and sequence numbers
+## README
+# Check and manage lock files
 
 # Settings
 set -e # Be sure we fail on error and output debugging information

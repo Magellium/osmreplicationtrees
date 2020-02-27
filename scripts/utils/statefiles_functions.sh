@@ -1,5 +1,6 @@
 #!/bin/bash
 
+## README
 # Useful functions to manipulate OSM replication trees paths 
 # and sequence numbers
 

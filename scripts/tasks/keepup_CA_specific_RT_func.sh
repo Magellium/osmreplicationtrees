@@ -1,5 +1,13 @@
 #!/bin/bash
 
+## README
+# For a given child area, this script will 
+# - extract its PBF file from its parent area (using Osmium)
+# - compare it to the latest extracted PBF file to produce a .osc.gz change file (using Osmium)
+# - generate the corresponding state.txt file
+# - update the corresponding replication tree
+# - manage old PBF files, keeping some archives
+
 # Settings
 set -e # Be sure we fail on error and output debugging information
 trap 'echo "$0: error on line $LINENO"' ERR

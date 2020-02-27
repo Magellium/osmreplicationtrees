@@ -1,5 +1,8 @@
 #!/bin/bash
 
+## README
+# This script will run consecutively all needed scripts to initialize an osmreplicationtrees instance
+
 # Settings
 set -e # Be sure we fail on error and output debugging information
 trap 'echo "$0: error on line $LINENO"' ERR

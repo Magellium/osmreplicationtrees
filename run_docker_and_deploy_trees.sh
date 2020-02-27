@@ -1,5 +1,9 @@
 #!/bin/bash
 
+## README
+# This script run a new docker container (or use an existing one)
+# and then launch the main script inside the container to deploy replication trees from scratch
+
 # Settings
 set -e # Be sure we fail on error and output debugging information
 trap 'echo "$0: error on line $LINENO"' ERR

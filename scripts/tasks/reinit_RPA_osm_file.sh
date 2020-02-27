@@ -1,5 +1,12 @@
 #!/bin/bash
 
+## README
+# This script reinitialize the root parent area latest PBF file from a freshly downloaded one
+# Before all it will check that:
+# - there is no concurrent process (no lock file)
+# -> if not the script will try to perform the task later (see $KEEPUP_RPA_DELAY_BETWEEN_TRIES and $KEEPUP_RPA_MAX_TRY_NUM)
+
+
 # Settings
 set -e # Be sure we fail on error and output debugging information
 trap 'echo "$0: error on line $LINENO"' ERR

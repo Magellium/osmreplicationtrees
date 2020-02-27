@@ -1,5 +1,12 @@
 #!/bin/bash
 
+## README
+# This script will keep up-to-date the Root Parent Area PBF file using Osmosis and Osmium
+# Before all it will check that:
+# - the Child Areas replication trees have been updated since last script call
+# - there is no concurrent process (no lock file)
+# -> if not the script will try to perform the task later (see $KEEPUP_RPA_DELAY_BETWEEN_TRIES and $KEEPUP_RPA_MAX_TRY_NUM)
+
 # Settings
 set -e # Be sure we fail on error and output debugging information
 trap 'echo "$0: error on line $LINENO"' ERR

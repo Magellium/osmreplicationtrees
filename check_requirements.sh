@@ -1,5 +1,10 @@
 #!/bin/bash
 
+## README
+# This script check that basic requirements are fullfiled before running osmreplicationtrees
+# For instance: check that some directories or files exists.
+# If a requirement is missing, this script displays some help to the end-user (e.g. run mkdir or wget commands)
+
 # Settings
 set -e # Be sure we fail on error and output debugging information
 trap 'echo "$0: error on line $LINENO"' ERR
