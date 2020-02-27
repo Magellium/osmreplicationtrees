@@ -3,7 +3,7 @@
 ## README
 # This script will run consecutively the two needed scripts to keep up-to-date an osmreplicationtrees running instance:
 # - first script to keep up-to-date the Root Parent Area PBF file
-# - first script to keep up-to-date the Child Areas replication trees
+# - second script to keep up-to-date the Child Areas replication trees
 
 # Settings
 # set -e # We do not want to exit on error

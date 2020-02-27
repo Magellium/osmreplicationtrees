@@ -1,8 +1,8 @@
 #!/bin/bash
 
 ## README
-# This script check that basic requirements are fullfiled before running osmreplicationtrees
-# For instance: check that some directories or files exists.
+# This script checks that basic requirements are fullfiled before running osmreplicationtrees
+# For instance: check that some directories or files exist.
 # If a requirement is missing, this script displays some help to the end-user (e.g. run mkdir or wget commands)
 
 # Settings

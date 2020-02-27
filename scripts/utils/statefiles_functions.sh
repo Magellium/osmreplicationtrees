@@ -1,8 +1,7 @@
 #!/bin/bash
 
 ## README
-# Useful functions to manipulate OSM replication trees paths 
-# and sequence numbers
+# Useful functions to manipulate OSM replication trees paths and sequence numbers
 
 # Settings
 set -e # Be sure we fail on error and output debugging information
