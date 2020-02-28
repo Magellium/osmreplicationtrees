@@ -10,7 +10,7 @@ It could be useful for example
 * if you need a daily `.osc.gz` file on a custom area which is not already provided by somebody else
 * you don't want to rely on an OSM data provider for your change files except Planet OSM servers
 
-What's called a daily replication tree ? It looks like that: [Planet OSM daily replication tree root](https://planet.osm.org/replication/day/).
+What's called a daily replication tree? It looks like that: [Planet OSM daily replication tree root](https://planet.osm.org/replication/day/).
 
 ## More details
 
@@ -19,9 +19,9 @@ Let's take an example: with an available daily updated `planet-latest.osm.pbf` a
 * `mycountry-latest.osm.pbf` file
 * `mycountry-latest/replication/day/` replication tree
 
-`osmreplicationtrees` can be used recursively. For instance, from a parent root area, your child areas could be `country1` and `country2`, and `country2` can be the parent of a `country2-subregion` child area, and so on).
+`osmreplicationtrees` can be used recursively. For instance, from a parent root area, your child areas could be `country1` and `country2`, and `country2` can be the parent of a `country2-subregion` child area, and so on.
 
-For sure, your parent root area must geographically comprises all its comming child areas.
+For sure, your parent root area must geographically contains all its comming child areas.
 
 ## Acronyms
 
@@ -32,7 +32,7 @@ Below acronyms are used for convenience in this repository
 * `CA`: `Child Area`
 * `RT`: `Replication Tree`
 
-## How it works?
+## How does it work?
 
 In summary, the procedure is (on a daily basis):
 
@@ -136,4 +136,4 @@ For one replication tree, you have to host (indicated sizes stand for `planet` a
 
 * two root parent areas `.osm.pbf` files  (2*49 GB ~ 100 GB)
 * at least two `child_area.osm.pbf` files (for instance 2*3.5 GB ~ 7 GB for France)
-* a child area replication tree (roughly estimated at 0,04% of your `child_area.osm.pbf` size more each day, from starting day ; for instance about 500MB for 6 months for France)
+* a child area replication tree (roughly estimated at 0,04% of your `child_area.osm.pbf` size more each day, from starting day; for instance about 500 MB for 6 months for France)
