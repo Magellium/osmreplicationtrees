@@ -70,7 +70,7 @@ function check_for_lock_files () {
   echo ------------------------------------------------------
   echo Check for existing lock files
   echo
-  for lock_file in ${LOCK_FILES[@]}; do
+  for lock_file in "${LOCK_FILES[@]}"; do
       LOCKFILE_EXISTS=$(checkForLockFile ${lock_file})
       echo 'LOCKFILE_EXISTS': $LOCKFILE_EXISTS
       if [ "$LOCKFILE_EXISTS" = TRUE ]; then
@@ -116,7 +116,7 @@ function keepup_RT () {
     echo $$ >${CA_LOCK_FILE}
     
     ITER=O
-    for child_area_name in ${CA_NAMES[@]}
+    for child_area_name in "${CA_NAMES[@]}"
       do
         echo
         echo "#################################"

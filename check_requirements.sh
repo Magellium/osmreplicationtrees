@@ -43,7 +43,7 @@ DIR="\
 $RPA_FILES_DIR_NAME/$RPA_NAME/${OSMOSIS_WORKING_DIRS_NAME}/changes/init \
 $CA_FILES_DIR_NAME \
 $LOG_FILES_DIR_NAME"
-for child_area in ${CA_NAMES[@]}
+for child_area in "${CA_NAMES[@]}"
   do
     DIR="${DIR} $CA_FILES_DIR_NAME/$child_area/$RT_DIRS_NAME"
 done
@@ -68,7 +68,7 @@ fi
 ## Check for the poly files
 
 ITER=0
-for child_area in ${CA_NAMES[@]}
+for child_area in "${CA_NAMES[@]}"
   do
     POLY_FILE_RELATIVE_PATH="./conf/poly_files/${child_area}.poly"
     POLY_FILE="$here/${POLY_FILE_RELATIVE_PATH}"
