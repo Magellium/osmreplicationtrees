@@ -79,7 +79,13 @@ if [ ! -f "${OSM_LATEST_FILE}" ]
 then
     >&2 echo -e "\nError: '${OSM_LATEST_FILE}' file does not exist."
     exit 1
-elsetoday minor _STATE_FILE}"
+else
+  echo "- '${OSM_LATEST_FILE}' file exists">&2
+fi
+
+echo
+echo ------------------------------------------------------
+echo "Check for state.txt file at ${AREA_ROOT_STATE_FILE}"
 echo
 
 if [ ! -f "${AREA_ROOT_STATE_FILE}" ]
